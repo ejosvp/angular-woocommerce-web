@@ -11,7 +11,7 @@ build_app: npm_install bower_install gulp_build
 
 build:
 	docker build -f build.Dockerfile -t deli-web-builder:latest .
-	docker run --rm -v "$(shell pwd)":/usr/src/app deli-web-builder
+	docker run -v "$(shell pwd)":/usr/src/app deli-web-builder
 
 deploy:
 	docker-compose up -d --build
