@@ -1,5 +1,5 @@
 *.log
-dist
+dist*
 node_modules
 bower_components
 .tmp
