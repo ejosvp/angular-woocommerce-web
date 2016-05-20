@@ -1,0 +1,77 @@
+<div class="page-layout simple tabbed doc-page" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" ng-include="'app/main/common/header.html'"></div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <md-tabs md-dynamic-height>
+
+            <md-tab label="New Orders">
+                <div layout="row" layout-xs="column" layout-sm="column" layout-margin>
+                    <div flex>
+                        <div class="simple-table-container md-whiteframe-4dp block">
+                            <div class="table-title">
+                                Open Orders
+                                <small>Accept & Deliver Orders</small>
+                            </div>
+
+                            <table class="simple" ms-responsive-table>
+                                <thead>
+                                <tr>
+                                    <th class="client-avatar"></th>
+                                    <th>CLIENT</th>
+                                    <th>ADDRESS</th>
+                                    <th class="text-right">AMOUNT</th>
+                                    <th class="text-right">TIME AGO</th>
+                                    <th class="text-right">PURCHASED</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <tfoot>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                </tfoot>
+
+                                <tbody>
+                                <tr ng-repeat="order in vm.orders" id="order{{order.id}}">
+                                    <td>
+                                        <img class="avatar" src="assets/images/avatars/profile.jpg">
+                                    </td>
+                                    <td class="client">{{order.customer.first_name}} {{order.customer.last_name}}</td>
+                                    <td class="address">{{order.shipping_address.full_address}}</td>
+                                    <td class="amount text-right">{{order.total | currency}}</td>
+                                    <td class="time-left text-right">{{order.completed_ago}}</td>
+                                    <td class="purchased text-right">{{order.line_items.length}}</td>
+                                    <td class="actions text-right">
+                                        <md-button class="md-icon-button main-sidenav-toggle"
+                                                   ng-if="vm.is_admin"
+                                                   ui-sref="app.orders.order({orderId: order.id})"
+                                                   aria-label="Order details">
+                                            <md-icon>more_vert</md-icon>
+                                        </md-button>
+                                        <md-button class="md-icon-button main-sidenav-toggle"
+                                                   ng-if="!vm.is_admin"
+                                                   ui-sref="app.orders.order.invoice({orderId: order.id})"
+                                                   aria-label="Order details">
+                                            <md-icon>more_vert</md-icon>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </md-tab>
+
+        </md-tabs>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

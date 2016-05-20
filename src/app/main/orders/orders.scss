@@ -1,0 +1,63 @@
+.gm-style-iw {
+  max-height: 230px !important;
+  overflow: hidden !important;
+  table {
+    overflow: hidden !important;
+    th {
+      min-width: 78px;
+    }
+  }
+  > div {
+    overflow: hidden !important;
+  }
+  .distances {
+    max-width: 43px;
+  }
+}
+
+.icon-bicycle {
+  background: url('../assets/icons/bicycle.png') no-repeat;
+  background-size: 24px;
+  display: inline-block;
+}
+
+.block {
+  margin-bottom: 24px;
+}
+
+.client-avatar {
+  width: 20px;
+  max-width: 20px;
+  min-width: 20px;
+}
+
+md-subheader {
+  padding: 0;
+  margin: 0;
+  h4 {
+    margin: 0;
+    padding: 0;
+    .layout-align-end {
+      float: right;
+    }
+  }
+}
+
+.card {
+  margin-bottom: 24px;
+  background: #FFFFFF;
+  .content {
+    padding: 0 10px;
+    overflow: auto;
+  }
+  .media {
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+  }
+}
+
+.table-title, .title {
+  small {
+    @extend .grey-700-fg;
+  }
+}

@@ -1,0 +1,18 @@
+<div flex>
+    <md-button
+            class="md-accent md-raised"
+            aria-label="compose"
+            ui-sref="app.orders.order.confirm({orderId: vm.order.id})"
+    >Accept Order
+    </md-button>
+    <md-button
+            class="md-raised md-warn"
+            aria-label="compose"
+            href="#"
+            ng-click="vm.dialog.showConfirm($event, vm.declineOrder, null, 'Are you sure?')"
+    >Decline Order
+    </md-button>
+</div>
+<div align="end center">
+    <h3>Time Left {{vm.order.completed_at | date:"h:mm"}}</h3>
+</div>

@@ -1,0 +1,84 @@
+<div id="forms" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <div class="header md-accent-bg" ng-include="'app/main/common/header.html'"></div>
+
+    <div layout="row" layout-xs="column" layout-sm="column" layout-margin>
+        <div class="form-wrapper md-whiteframe-1dp" flex>
+            <form name="storeForm" class="md-inline-form" novalidate>
+
+                <div class="form-title">Account Info</div>
+
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container flex>
+                        <input type="text" name="name" ng-model="vm.store.storeName"
+                               placeholder="Name"
+                               required>
+                    </md-input-container>
+                </div>
+
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container flex>
+                        <input type="text" name="description" ng-model="vm.store.storeDescription"
+                               placeholder="Description"
+                               required>
+                    </md-input-container>
+                </div>
+
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container flex>
+                        <input type="text" name="address" ng-model="vm.store.storeAddress"
+                               placeholder="Address"
+                               required>
+                    </md-input-container>
+                </div>
+
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container flex>
+                        <input type="text" name="radius" ng-model="vm.store.storeRadius"
+                               placeholder="Radius (in meters)"
+                               ng-change="vm.setRadius()"
+                               required>
+                    </md-input-container>
+                </div>
+
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container flex>
+                        <input type="text" name="phone" ng-model="vm.store.storePhone"
+                               placeholder="Phone"
+                               required>
+                    </md-input-container>
+                </div>
+
+
+                <md-button
+                        ng-disabled="storeForm.$invalid || storeForm.$pristine"
+                        type="submit"
+                        class="md-raised md-accent"
+                        aria-label="Save"
+                        ng-click="vm.saveForm($event)"
+                >
+                    Save
+                </md-button>
+            </form>
+        </div>
+        <div class="form-wrapper md-whiteframe-1dp" flex>
+            <ui-gmap-google-map
+                    center="vm.map.center"
+                    zoom="vm.map.zoom"
+                    bounds="vm.map.bounds">
+                <ui-gmap-marker
+                        idKey='1'
+                        coords='vm.store.coords'
+                        options='vm.store.markerOptions'
+                >
+                </ui-gmap-marker>
+                <ui-gmap-circle center='vm.store.coords'
+                                radius='vm.store.radius'
+                                events="vm.map.circleEvents"
+                >
+                </ui-gmap-circle>
+            </ui-gmap-google-map>
+        </div>
+    </div>
+
+</div>

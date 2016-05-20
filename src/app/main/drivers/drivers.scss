@@ -1,0 +1,21 @@
+.block {
+  margin-bottom: 24px;
+}
+
+.card {
+  margin-bottom: 24px;
+  background: #FFFFFF;
+  .content {
+    padding: 0 10px;
+    overflow: auto;
+  }
+  .media {
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+  }
+}
+.table-title, .title {
+  small {
+    @extend .grey-700-fg;
+  }
+}

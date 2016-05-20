@@ -1,0 +1,33 @@
+<div class="simple-table-container md-whiteframe-4dp block">
+  <div class="table-title">
+    Drivers
+  </div>
+
+  <table class="simple" ms-responsive-table>
+    <thead>
+    <tr>
+      <th>NAME</th>
+      <th>EMAIL</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tfoot>
+    <tr>
+      <td></td>
+    </tr>
+    </tfoot>
+
+    <tbody>
+    <tr ng-repeat="driver in vm.drivers">
+      <td class="client">
+        <div class="avatar-wrapper">
+          <img class="avatar" src="assets/images/avatars/profile.jpg">
+          {{driver.first_name}} {{driver.last_name}}
+        </div>
+      </td>
+      <td class="email">{{driver.email}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

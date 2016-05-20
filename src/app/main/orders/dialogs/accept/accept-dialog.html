@@ -1,0 +1,80 @@
+<md-dialog class="compose-dialog" aria-label="New Message">
+    <md-toolbar class="md-accent md-hue-2">
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <span class="title">Confirm Order</span>
+            <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                <md-icon md-font-icon="icon-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+        <table class="simple invoice-table">
+            <thead>
+            <th class="checkbox"></th>
+            <th>PRODUCT</th>
+            <th class="text-right">UNIT PRICE</th>
+            <th class="text-right">QUANTITY</th>
+            <th class="text-right">TOTAL</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in vm.details.items">
+                <td>
+                    <md-checkbox ng-model="item.active" aria-label="Checkbox"></md-checkbox>
+                </td>
+                <td>
+                    <div class="title">{{item.product}}</div>
+                </td>
+                <td class="text-right">
+                    {{item.unit_price | currency}}
+                </td>
+                <td class="text-right">
+                    {{item.quantity}}
+                </td>
+                <td class="text-right">
+                    {{(item.unit_price * item.quantity) | currency}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="simple invoice-table-footer">
+            <tbody>
+            <tr class="subtotal">
+                <td>SUBTOTAL</td>
+                <td>{{vm.totals.subtotal | currency}}</td>
+            </tr>
+            <tr class="tax">
+                <td>TAX</td>
+                <td>{{vm.totals.tax | currency}}</td>
+            </tr>
+            <tr class="discount">
+                <td>DISCOUNT</td>
+                <td>-{{vm.totals.discount | currency}}</td>
+            </tr>
+            <tr class="total">
+                <td>TOTAL</td>
+                <td>{{vm.totals.total | currency}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+        <div layout="row" layout-align="start center">
+            <md-button
+                    ng-click="vm.closeDialog()"
+                    ui-sref="app.orders"
+                    class="md-accent md-raised"
+                    aria-label="Send Products"
+            >Send Products
+            </md-button>
+            <md-button
+                    ng-click="vm.closeDialog()"
+                    class="md-warm md-raised"
+                    aria-label="Cancel"
+            >Cancel
+            </md-button>
+        </div>
+    </md-dialog-actions>
+</md-dialog>

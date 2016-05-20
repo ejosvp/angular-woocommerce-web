@@ -1,0 +1,232 @@
+{
+  "projects": [
+    {
+      "name": "Deli Store, Supermarket"
+    }
+  ],
+  "widget1": {
+    "ranges": {
+      "DY": "Yesterday",
+      "DT": "Due Today",
+      "DTM": "Tomorrow"
+    },
+    "currentRange": "DT",
+    "data": {
+      "label": "Orders",
+      "count": {
+        "DY": 21,
+        "DT": 25,
+        "DTM": 19
+      },
+      "extra": {
+        "label": "Completed",
+        "count": {
+          "DY": 6,
+          "DT": 7,
+          "DTM": "-"
+        }
+      }
+    },
+    "detail": "You can show some detailed information about this widget in here."
+  },
+  "widget2": {
+    "title": "Overdue",
+    "data": {
+      "label": "Orders",
+      "count": 4,
+      "extra": {
+        "label": "Yesterday's overdue",
+        "count": 2
+      }
+    },
+    "detail": "You can show some detailed information about this widget in here."
+  },
+  "widget3": {
+    "title": "Today",
+    "data": {
+      "label": "Clients",
+      "count": 32,
+      "extra": {
+        "label": "Closed today",
+        "count": 0
+      }
+    },
+    "detail": "You can show some detailed information about this widget in here."
+  },
+  "widget4": {
+    "title": "Declined",
+    "data": {
+      "label": "Decline Due Time Frame",
+      "count": 42,
+      "extra": {
+        "label": "Declined Today",
+        "count": 8
+      }
+    },
+    "detail": "You can show some detailed information about this widget in here."
+  },
+  "widget8": {
+    "title": "Incoming Distribution",
+    "mainChart": [
+      {
+        "label": "Candys",
+        "value": 12
+      },
+      {
+        "label": "soda",
+        "value": 17
+      },
+      {
+        "label": "Meal",
+        "value": 28
+      },
+      {
+        "label": "Chocolate Bar",
+        "value": 25
+      },
+      {
+        "label": "Coke",
+        "value": 15
+      }
+    ]
+  },
+  "widget9": {
+    "title": "Incomings",
+    "ranges": {
+      "TW": "This Week",
+      "LW": "Last Week",
+      "2W": "2 Weeks Ago"
+    },
+    "weeklySpent": {
+      "title": "TOTAL CLIENTS",
+      "count": {
+        "2W": "350",
+        "LW": "345",
+        "TW": "343"
+      },
+      "chart": {
+        "label": "TOTAL SOLD",
+        "values": {
+          "2W": [
+            {"x": 0, "y": 6},
+            {"x": 1, "y": 1},
+            {"x": 2, "y": 3},
+            {"x": 3, "y": 4},
+            {"x": 4, "y": 5},
+            {"x": 5, "y": 5},
+            {"x": 6, "y": 2}
+          ],
+          "LW": [
+            {"x": 0, "y": 4},
+            {"x": 1, "y": 6},
+            {"x": 2, "y": 2},
+            {"x": 3, "y": 2},
+            {"x": 4, "y": 1},
+            {"x": 5, "y": 3},
+            {"x": 6, "y": 4}
+          ],
+          "TW": [
+            {"x": 0, "y": 2},
+            {"x": 1, "y": 6},
+            {"x": 2, "y": 5},
+            {"x": 3, "y": 4},
+            {"x": 4, "y": 5},
+            {"x": 5, "y": 3},
+            {"x": 6, "y": 6}
+          ]
+        }
+      }
+    },
+    "totalSpent": {
+      "title": "TOTAL SPENT",
+      "count": {
+        "2W": "29,682.85",
+        "LW": "31,128.19",
+        "TW": "34,758.34"
+      },
+      "chart": {
+        "label": "Spent",
+        "values": {
+          "2W": [
+            {"x": 0, "y": 3},
+            {"x": 1, "y": 2},
+            {"x": 2, "y": 2},
+            {"x": 3, "y": 4},
+            {"x": 4, "y": 7},
+            {"x": 5, "y": 7},
+            {"x": 6, "y": 4}
+          ],
+          "LW": [
+            {"x": 0, "y": 5},
+            {"x": 1, "y": 7},
+            {"x": 2, "y": 8},
+            {"x": 3, "y": 8},
+            {"x": 4, "y": 6},
+            {"x": 5, "y": 4},
+            {"x": 6, "y": 1}
+          ],
+          "TW": [
+            {"x": 0, "y": 6},
+            {"x": 1, "y": 3},
+            {"x": 2, "y": 7},
+            {"x": 3, "y": 5},
+            {"x": 4, "y": 5},
+            {"x": 5, "y": 4},
+            {"x": 6, "y": 7}
+          ]
+        }
+      }
+    },
+    "totalBudget": {
+      "title": "TOTAL INCOMINGS",
+      "count": "124.000,00"
+    }
+  },
+  "weatherWidget": {
+    "locations": {
+      "NewYork": {
+        "name": "New York",
+        "icon": "icon-weather-pouring",
+        "temp": {
+          "C": "22",
+          "F": "72"
+        },
+        "windSpeed": {
+          "KMH": 12,
+          "MPH": 7.5
+        },
+        "windDirection": "NW",
+        "rainProbability": "98%",
+        "next3Days": [
+          {
+            "name": "Sunday",
+            "icon": "icon-weather-pouring",
+            "temp": {
+              "C": "21",
+              "F": "70"
+            }
+          },
+          {
+            "name": "Sunday",
+            "icon": "icon-weather-pouring",
+            "temp": {
+              "C": "19",
+              "F": "66"
+            }
+          },
+          {
+            "name": "Tuesday",
+            "icon": "icon-weather-partlycloudy",
+            "temp": {
+              "C": "24",
+              "F": "75"
+            }
+          }
+        ]
+      }
+    },
+    "currentLocation": "NewYork",
+    "tempUnit": "C",
+    "speedUnit": "KMH"
+  }
+}

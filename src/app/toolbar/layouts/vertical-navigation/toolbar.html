@@ -1,0 +1,84 @@
+<div layout="row" layout-align="start center">
+    <div layout="row" layout-align="start center" flex>
+        <md-button id="navigation-toggle" class="md-icon-button" ng-click="vm.toggleSidenav('navigation')"
+                   hide-gt-sm aria-label="Toggle navigation" translate
+                   translate-attr-aria-label="TOOLBAR.TOGGLE_NAVIGATION">
+            <md-icon class="icon">menu</md-icon>
+        </md-button>
+
+        <ms-search-bar></ms-search-bar>
+
+        <div class="toolbar-separator"></div>
+
+        <md-progress-circular id="toolbar-progress" ng-if="$root.loadingProgress" class="md-accent"
+                              md-mode="indeterminate" md-diameter="64">
+        </md-progress-circular>
+    </div>
+
+    <div layout="row" layout-align="start center">
+        <md-menu-bar id="user-menu">
+            <md-menu md-position-mode="left bottom">
+                <md-button class="user-button" ng-click="$mdOpenMenu()"
+                           aria-label="User settings"
+                           translate translate-attr-aria-label="TOOLBAR.USER_SETTINGS">
+                    <div layout="row" layout-align="space-between center">
+                        <div class="avatar-wrapper">
+                            <img md-menu-align-target class="avatar" src="assets/images/avatars/profile.jpg">
+                        </div>
+                        <span class="username" hide-xs>{{ vm.user.firstname }} {{ vm.user.lastname }}</span>
+                        <md-icon class="icon s16" hide-xs>arrow_drop_down</md-icon>
+                    </div>
+                </md-button>
+
+                <md-menu-content width="2">
+                    <md-menu-item class="md-indent" ui-sref="app.profile">
+                        <md-icon class="icon">store_mall_directory</md-icon>
+                        <md-button>Account Info</md-button>
+                    </md-menu-item>
+
+                    <md-menu-divider ng-if="vm.is_admin"></md-menu-divider>
+
+                    <md-menu-item class="md-indent">
+                        <md-icon class="icon">exit_to_app</md-icon>
+                        <md-button ng-click="vm.logout()">Logout</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+
+        <div class="toolbar-separator"></div>
+
+        <md-menu-bar id="store-status-menu">
+            <md-menu md-position-mode="left bottom">
+                <md-button class="user-button" ng-click="$mdOpenMenu()"
+                           aria-label="Store status">
+                    <div layout="row" layout-align="space-between center">
+                        <span ng-if="vm.is_admin" class="username" hide-xs>Store Status</span>
+                        <span ng-if="!vm.is_admin" class="username" hide-xs>Driver Status</span>
+
+                        <md-icon ng-style="{'color': vm.userStatus.color }"class="icon status s16">
+                            {{vm.userStatus.icon}}
+                        </md-icon>
+
+                        <span class="status" hide-xs>{{vm.userStatus.title}}</span>
+
+                        <md-icon class="icon s16" hide-xs>arrow_drop_down</md-icon>
+                    </div>
+                </md-button>
+
+                <md-menu-content width="2">
+                    <md-menu-item class="status md-indent"
+                                  ng-class="{'selected': status === vm.userStatus}"
+                                  ng-repeat="status in vm.userStatusOptions">
+                        <md-icon ng-style="{'color': status.color }"class="icon status s16">
+                            {{status.icon}}
+                        </md-icon>
+                        <md-button ng-click="vm.setUserStatus(status)">
+                            {{status.title}}
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+    </div>
+</div>

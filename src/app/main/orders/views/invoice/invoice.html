@@ -1,0 +1,220 @@
+<div class="page-layout simple tabbed" layout="column">
+
+    <div class="header md-accent-bg">
+        <div class="title ng-binding">Welcome back, John!</div>
+    </div>
+
+    <div id="invoice" class="page-layout blank" layout="row" ms-scroll>
+        <div class="invoice-container">
+            <div class="card md-whiteframe-8dp">
+                <div class="header" layout="row" layout-align="space-between start">
+                    <div class="ids" layout="column">
+                        <div layout="row" class="seller" layout-align="start center">
+                            <div class="logo md-accent-bg" layout="row" layout-align="center center">
+                                <div>F</div>
+                            </div>
+
+                            <div class="divider"></div>
+
+                            <div class="detail">
+                                <div class="title">Deli Inc.</div>
+                                <div class="address">2810 Country Club Road</div>
+                                <div class="phone"><span>Phone</span>: +66 123 455 87</div>
+                                <div class="email"><span>Email</span>: hello@deli.com</div>
+                                <div class="website"><span>Web</span>: www.deli.com</div>
+                            </div>
+                        </div>
+
+                        <div layout="row" class="client" layout-align="start center">
+                            <div class="label" layout="row" layout-align="end center">
+                                <div>CLIENT</div>
+                            </div>
+
+                            <div class="divider"></div>
+
+                            <div class="detail">
+                                <div class="title">
+                                    {{vm.order.customer.billing_address.first_name}}
+                                    {{vm.order.customer.billing_address.last_name}}
+                                </div>
+                                <div class="address">{{vm.order.customer.billing_address.address_1}}</div>
+                                <div class="address">
+                                    {{vm.order.customer.billing_address.city}},
+                                    {{vm.order.customer.billing_address.state}}
+                                    {{vm.order.customer.billing_address.postcode}}
+                                </div>
+                                <div class="phone"><span>Phone</span>: {{vm.order.customer.billing_address.phone}}</div>
+                                <div class="email"><span>Email</span>: {{vm.order.customer.billing_address.email}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="summary">
+                        <tr class="code">
+                            <td class="label" >INVOICE</td>
+                            <td class="value">P9-{{vm.order.order_number}}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="label" >INVOICE DATE</td>
+                            <td class="value">{{vm.order.created_at | date}}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="label" >DUE DATE</td>
+                            <td class="value">{{vm.order.created_at | date}}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="label" >TOTAL DUE</td>
+                            <td class="value">{{vm.order.total | currency}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="content">
+                    <h2>Order Details</h2>
+                    <table class="simple invoice-table">
+                        <thead>
+                        <th class="checkbox"></th>
+                        <th>PRODUCT</th>
+                        <th class="text-right">UNIT PRICE</th>
+                        <th class="text-right">QUANTITY</th>
+                        <th class="text-right">TOTAL</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.order.line_items">
+                            <td>
+                                <md-checkbox ng-model="item.active" aria-label="Checkbox"></md-checkbox>
+                            </td>
+                            <td>
+                                <div class="title"> {{item.name}}</div>
+                                <div class="detail"> {{item.description}}</div>
+                            </td>
+                            <td class="text-right">
+                                {{item.price | currency}}
+                            </td>
+                            <td class="text-right">
+                                {{item.quantity}}
+                            </td>
+                            <td class="text-right">
+                                {{(item.total) | currency}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="simple invoice-table-footer">
+                        <tbody>
+                        <tr class="subtotal">
+                            <td>SUBTOTAL</td>
+                            <td>{{vm.order.subtotal | currency}}</td>
+                        </tr>
+                        <tr class="tax">
+                            <td>TAX</td>
+                            <td>{{vm.order.total_tax | currency}}</td>
+                        </tr>
+                        <tr class="discount">
+                            <td>DISCOUNT</td>
+                            <td>-{{vm.order.total_discount | currency}}</td>
+                        </tr>
+                        <tr class="total">
+                            <td>TOTAL</td>
+                            <td>{{vm.order.total | currency}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <section class="block" layout="row" layout-sm="column" layout-align="center" layout-wrap>
+                <div flex>
+                    <md-button
+                            ng-click="vm.iAmHere()"
+                            class="md-accent md-raised"
+                            ng-if="vm.accepted"
+                            aria-label="compose"
+                    >I Am Here
+                    </md-button>
+                </div>
+                <div align="end center">
+                    <md-button
+                            ng-click="vm.acceptDelivery()"
+                            class="md-accent md-raised md-light-green-500-bg"
+                            aria-label="compose"
+                    >Accept Delivery
+                    </md-button>
+                </div>
+            </section>
+
+            <div class="card md-whiteframe-8dp" ng-if="vm.i_am_here">
+                <div class="content">
+                    <md-slider flex ng-model="color.green" min="0" max="2" aria-label="green" id="green-slider"></md-slider>
+                    <section class="block" layout="row" layout-sm="column" layout-align="center" layout-wrap>
+                        <h2 flex align="start center">No Tip</h2>
+                        <h2 flex align="center">Average</h2>
+                        <h2 flex align="end center" class="text-right">Thanks</h2>
+                    </section>
+                    <div align="center">
+                        <md-button
+                                ng-click="vm.completeOrder()"
+                                class="md-accent md-raised md-light-green-500-bg"
+                                aria-label="compose"
+                        >Complete Order
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card md-whiteframe-4dp borderless">
+                <section layout="row" layout-sm="column" layout-align="center" layout-wrap>
+                    <div class="content" flex>
+                        <div class="title">
+                            DELIVERY ADDRESS:
+                            <small>
+                                {{vm.order.shipping_address.address_1}}
+                                {{vm.order.shipping_address.address_2}}
+                                {{vm.order.shipping_address.city}}
+                                {{vm.order.shipping_address.state}}
+                                {{vm.order.shipping_address.postcode}}
+                                {{vm.order.shipping_address.country}}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="content" align="end center" ng-if="vm.accepted">
+                        <div class="title">
+                            Time Since Shipped
+                            <small>{{vm.zeros(vm.time / 60)}}:{{vm.zeros(vm.time % 60)}}</small>
+                        </div>
+                    </div>
+                </section>
+                <div class="media">
+                    <ui-gmap-google-map center="vm.markerMap.center" zoom="vm.markerMap.zoom">
+                        <ui-gmap-markers
+                                models="vm.markerMap.markers"
+                                id-key="'id'"
+                                coords="'coords'"
+                                options="'options'"
+                                fit="true"
+                        ></ui-gmap-markers>
+                    </ui-gmap-google-map>
+                </div>
+                <section layout="row" layout-sm="column" layout-align="center" layout-wrap>
+                    <div flex>
+                        <md-button
+                                class="md-raised md-primary md-green-500-bg"
+                                aria-label="compose"
+                                href="tel:13475317864"
+                        >Call Customer</md-button>
+                        <md-button
+                                class="md-raised md-primary md-green-500-bg"
+                                aria-label="compose"
+                                href="tel:15623105801"
+                        >Call Courier</md-button>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+</div>

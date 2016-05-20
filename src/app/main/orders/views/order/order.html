@@ -1,0 +1,107 @@
+<div class="page-layout simple tabbed" layout="column">
+
+    <div class="header md-accent-bg" ng-include="'app/main/common/header.html'"></div>
+
+    <div id="invoice" class="page-layout blank" layout="row" ms-scroll>
+        <div class="invoice-container">
+            <div class="card md-whiteframe-8dp">
+                <md-content
+                        class="header"
+                        flex layout="row"
+                        layout-align="space-between start"
+                        ui-view="orderHeader">
+
+                </md-content>
+
+                <div class="content">
+                    <h2>Order Details</h2>
+                    <table class="simple invoice-table">
+                        <thead>
+                        <th class="checkbox" ng-if="vm.order.selectable_items"></th>
+                        <th>PRODUCT</th>
+                        <th class="text-right">UNIT PRICE</th>
+                        <th class="text-right">QUANTITY</th>
+                        <th class="text-right">TOTAL</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in vm.order.line_items">
+                            <td ng-if="vm.order.selectable_items">
+                                <md-checkbox ng-model="item.active" aria-label="Checkbox"></md-checkbox>
+                            </td>
+                            <td>
+                                <div class="title"> {{item.name}}</div>
+                                <div class="detail"> {{item.description}}</div>
+                            </td>
+                            <td class="text-right">
+                                {{item.price | currency}}
+                            </td>
+                            <td class="text-right">
+                                {{item.quantity}}
+                            </td>
+                            <td class="text-right">
+                                {{(item.total) | currency}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="simple invoice-table-footer">
+                        <tbody>
+                        <tr class="subtotal">
+                            <td>SUBTOTAL</td>
+                            <td>{{vm.order.subtotal | currency}}</td>
+                        </tr>
+                        <tr class="tax">
+                            <td>TAX</td>
+                            <td>{{vm.order.total_tax | currency}}</td>
+                        </tr>
+                        <tr class="discount">
+                            <td>DISCOUNT</td>
+                            <td>-{{vm.order.total_discount | currency}}</td>
+                        </tr>
+                        <tr class="total">
+                            <td>TOTAL</td>
+                            <td>{{vm.order.total | currency}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <md-content
+                    class="block"
+                    layout="row"
+                    layout-sm="column"
+                    layout-align="center"
+                    layout-wrap
+                    ui-view="orderActions">
+            </md-content>
+
+            <div class="card md-whiteframe-4dp borderless">
+                <md-content layout="row" ui-view="orderMapHeader"></md-content>
+                <div class="media">
+                    <ui-gmap-google-map
+                            center="vm.map.center"
+                            zoom="vm.map.zoom"
+                            bounds="vm.map.bounds">
+                        <ui-gmap-marker
+                                idKey='vm.order.id'
+                                coords='vm.order.coords'
+                                options='vm.order.markerOptions'
+                        >
+                        </ui-gmap-marker>
+                        <ui-gmap-marker
+                                idKey='vm.user.id'
+                                coords='vm.user.coords'
+                                options='vm.user.markerOptions'
+                        >
+                        </ui-gmap-marker>
+                    </ui-gmap-google-map>
+                </div>
+                <md-content layout="row" ui-view="orderMapFooter"></md-content>
+                </section>
+            </div>
+
+        </div>
+    </div>
+</div>

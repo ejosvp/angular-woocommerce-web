@@ -1,0 +1,76 @@
+<div>
+    <table>
+        <tbody>
+        <tr>
+            <th class="text-left">Order Details</th>
+            <td colspan="4">
+                <strong class="blue-500-fg">({{ parameter().total | currency }})</strong>
+                {{ parameter().line_items.length }} items
+            </td>
+        </tr>
+        <tr>
+            <th class="text-left">Buyer Name</th>
+            <td colspan="4">{{ parameter().customer.first_name }} {{ parameter().customer.last_name }}</td>
+        </tr>
+        <tr>
+            <th class="text-left">Shipping<br>Address</th>
+            <td colspan="4">
+                {{ parameter().shipping_address.address_1 }}
+                {{ parameter().shipping_address.address_2 }}
+                <br>
+                {{ parameter().shipping_address.city }}
+                {{ parameter().shipping_address.state }}
+                {{ parameter().shipping_address.postcode }}
+                {{ parameter().shipping_address.country }}
+            </td>
+        </tr>
+        <tr>
+            <th class="text-left">Distance</th>
+            <td class="distances text-center" ng-repeat="item in parameter().distances">
+                {{ item.distance }}
+            </td>
+        </tr>
+        <tr>
+            <th class="text-left">Type</th>
+            <td class="distances text-center">
+                <md-icon>directions_car</md-icon>
+            </td>
+            <td class="distances text-center">
+                <md-icon>directions_bike</md-icon>
+            </td>
+            <td class="distances text-center">
+                <md-icon>directions_transit</md-icon>
+            </td>
+            <td class="distances text-center">
+                <md-icon>directions_walk</md-icon>
+            </td>
+        </tr>
+        <tbody>
+        <tr>
+            <th class="text-left">Time<br>Estimated</th>
+            <td class="distances text-center" ng-repeat="item in parameter().distances">
+                {{ item.duration }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <section class="block" layout="row" layout-sm="column" layout-align="center" layout-wrap>
+        <div flex>
+            <md-button
+                    ng-click="parameter().methods.showPanorama(parameter().id)"
+                    class="md-grey-600-bg grey-600-bg"
+                    aria-label="compose"
+            >Street View
+            </md-button>
+        </div>
+        <div align="end center">
+            <md-button
+                    ui-sref="app.orders.order({orderId: parameter().id})"
+                    class="md-accent md-raised"
+                    aria-label="compose"
+            >View Detail
+            </md-button>
+        </div>
+    </section>
+</div>

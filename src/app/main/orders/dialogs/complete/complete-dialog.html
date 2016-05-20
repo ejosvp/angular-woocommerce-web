@@ -1,0 +1,17 @@
+<md-dialog class="compose-dialog" aria-label="New Message">
+    <md-dialog-content ms-scroll>
+        This order has been completed.
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+        <div layout="row" layout-align="start center">
+            <md-button
+                    ng-click="vm.closeDialog()"
+                    ui-sref="app.orders"
+                    class="send-button md-accent md-raised"
+                    aria-label="Accept"
+            >Accept
+            </md-button>
+        </div>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,35 @@
+<div id="login" class="flex-scrollable" layout="column" ms-scroll>
+    <div id="login-form-wrapper" layout="column" layout-align="center center">
+        <div id="login-form" class="md-whiteframe-8dp">
+            <div class="logo md-accent-bg"></div>
+            <div class="title">Log in to your account</div>
+
+            <form name="loginForm" novalidate>
+                <md-input-container class="md-block" md-no-float>
+                    <input type="text" name="username" ng-model="vm.user.username" placeholder="Username" required>
+                    <div ng-messages="loginForm.username.$error" role="alert" multiple>
+                        <div ng-message="required">
+                            <span>Username field is required</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="password" name="password" ng-model="vm.user.password" placeholder="Password" required>
+                    <div ng-messages="loginForm.password.$error" role="alert">
+                        <div ng-message="required">
+                            <span>Password field is required</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-button type="submit" class="md-raised md-accent submit-button" aria-label="LOG IN"
+                           ng-disabled="loginForm.$invalid || loginForm.$pristine"
+                           ng-click="vm.login()">
+                    LOG IN
+                </md-button>
+            </form>
+
+        </div>
+    </div>
+</div>
