@@ -7,8 +7,8 @@
 
     /** @ngInject */
     function OrderInvoiceController(Order, StoreInfo, User, // Data
-                             googleMaps, Location, auth, DialogService, // App services
-                             $state, $q // Core services
+                                    googleMaps, Location, auth, DialogService, // App services
+                                    $state, $q // Core services
     ) {
         var vm = this;
 
@@ -17,19 +17,44 @@
         vm.order.coords = {latitude: 0, longitude: 0};
         vm.order.markerOptions = {icon: googleMaps.getIcon('client.png', [30, 30])};
 
+        vm.order.selectable_items = true;
+
         vm.store = StoreInfo;
 
         vm.user = User;
+        vm.i_am_here = false;
+        vm.accepted = false;
 
         vm.map = googleMaps.Map();
 
         vm.dialog = DialogService;
         // Methods
-        vm.declineOrder = declineOrder;
+        vm.iAmHere = iAmHere;
+        vm.acceptDelivery = acceptDelivery;
+        vm.completeOrder = completeOrder;
 
         //////////
-        function declineOrder() {
-            $state.go('app.orders.list')
+        function iAmHere() {
+            vm.i_am_here = true;
+        }
+
+        function acceptDelivery() {
+            vm.order.order_meta = {
+                accepted_at: moment()
+            };
+            vm.order.$save().then(function () {
+                vm.accepted = true;
+            });
+        }
+
+        function completeOrder() {
+            vm.order.status = 'complete';
+            vm.order.order_meta = {
+                completed_at: moment()
+            };
+            vm.order.$save().then(function () {
+                $state.go('app.orders.list');
+            });
         }
 
         $q.all([
