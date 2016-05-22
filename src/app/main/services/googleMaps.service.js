@@ -131,11 +131,17 @@
                     if (status === g.maps.DistanceMatrixStatus.OK) {
                         var results = [];
                         angular.forEach(response.rows[0].elements, function (result, index) {
-                            results[index] = {
-                                travelMode: travelMode,
-                                distance: result.distance.text,
-                                duration: result.duration.text
-                            };
+                            if (result.status == g.maps.DistanceMatrixElementStatus.OK) {
+                                results[index] = {
+                                    travelMode: travelMode,
+                                    distance: result.distance.text,
+                                    duration: result.duration.text
+                                };
+                            } else {
+                                results[index] = {
+                                    error: result.status
+                                }
+                            }
                         });
                         localDeferred.resolve(results);
                     } else {
