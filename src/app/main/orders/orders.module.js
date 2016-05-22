@@ -24,9 +24,7 @@
                 },
                 resolve: {
                     Orders: function (OrderService) {
-                        return OrderService.getOrders({
-                            keepUpdated: true
-                        });
+                        return OrderService.getOrders();
                     }
                 }
             })
@@ -55,6 +53,7 @@
                 }
             })
             .state('app.orders.order.confirm', {
+                role: 'administrator',
                 url: '/confirm',
                 views: {
                     'content@app': {
@@ -77,10 +76,10 @@
                             'filter[role]': 'driver'
                         });
                     }
-                },
-                role: 'administrator'
+                }
             })
             .state('app.orders.order.invoice', {
+                role: 'driver',
                 url: '/invoice',
                 views: {
                     'content@app': {
@@ -95,8 +94,7 @@
                     DriversData: function (msApi) {
                         return msApi.resolve('drivers@get');
                     }
-                },
-                role: 'driver'
+                }
             })
         ;
 

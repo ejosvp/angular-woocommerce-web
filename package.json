@@ -5,7 +5,9 @@
     "bower": "^1.7.9"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "deps": "bower install --allow-root",
+    "server": "gulp serve"
   },
   "devDependencies": {
     "estraverse": "~4.1.0",

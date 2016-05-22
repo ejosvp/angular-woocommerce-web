@@ -1,0 +1,33 @@
+<div flex>
+    Select Driver
+
+    <md-menu md-position-mode="left bottom">
+        <md-button class="md-raised" ng-click="$mdOpenMenu()"
+                   aria-label="Store status">
+            <div layout="row" layout-align="space-between center">
+                <span class="status" hide-xs>{{vm.driver.first_name}} {{vm.driver.last_name}}</span>
+                <md-icon class="icon s16" hide-xs>arrow_drop_down</md-icon>
+            </div>
+        </md-button>
+
+        <md-menu-content>
+            <md-menu-item class="status md-indent"
+                          ng-class="{'selected': driver.id === vm.driver.id}"
+                          ng-repeat="driver in vm.drivers">
+                <md-button ng-click="vm.setDriver(driver)">
+                    {{driver.first_name}} {{driver.last_name}}
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+
+    <md-button
+            ng-click="vm.sendProducts()"
+            class="md-accent md-raised"
+            aria-label="compose"
+    >Ready to Ship
+    </md-button>
+</div>
+<div align="end center">
+    <h3>Time Left {{vm.order.completed_at | date:"h:mm"}}</h3>
+</div>

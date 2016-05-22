@@ -9,6 +9,7 @@
     function WebSocket($websocket, WEBSOCKETS_URL) {
 
         var service = {
+            status: false,
             subscribers: {},
             init: init,
             subscribe: subscribe
@@ -18,11 +19,15 @@
             var dataStream = $websocket(WEBSOCKETS_URL);
 
             dataStream.onOpen(function (data) {
-                console.log(data);
+                service.status = true;
             });
 
             dataStream.onError(function (error) {
                 console.log(error);
+            });
+
+            dataStream.onClose(function () {
+                service.status = false;
             });
 
             dataStream.onMessage(function (data) {
