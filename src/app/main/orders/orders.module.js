@@ -83,16 +83,27 @@
                 url: '/invoice',
                 views: {
                     'content@app': {
-                        templateUrl: 'app/main/orders/views/invoice/invoice.html',
-                        controller: 'InvoiceOrderController as vm'
+                        templateUrl: 'app/main/orders/views/order/order.html',
+                        controller: 'OrderInvoiceController as vm'
+                    },
+                    'orderHeader@app.orders.order.invoice': {
+                        templateUrl: 'app/main/orders/views/invoice/orderHeader.html'
+                    },
+                    'orderActions@app.orders.order.invoice': {
+                        templateUrl: 'app/main/orders/views/invoice/orderActions.html'
+                    },
+                    'orderMapHeader@app.orders.order.invoice': {
+                        templateUrl: 'app/main/orders/views/invoice/orderMapHeader.html'
+                    },
+                    'orderMapFooter@app.orders.order.invoice': {
+                        templateUrl: 'app/main/orders/views/invoice/orderMapFooter.html'
                     }
                 },
                 resolve: {
-                    Order: function (apiResolver, $stateParams) {
-                        return apiResolver.resolve('orders@get', {'id': $stateParams.orderId});
-                    },
-                    DriversData: function (msApi) {
-                        return msApi.resolve('drivers@get');
+                    Drivers: function (apiResolver) {
+                        return apiResolver.resolve('users@get', {
+                            'filter[role]': 'driver'
+                        });
                     }
                 }
             })
