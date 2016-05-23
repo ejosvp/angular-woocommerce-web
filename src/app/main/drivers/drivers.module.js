@@ -24,7 +24,7 @@
                         });
                     }
                 },
-                role: 'administrator'
+                role: 'store_admin'
             })
         ;
 

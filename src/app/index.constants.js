@@ -1,16 +1,18 @@
 (function () {
     'use strict';
 
+    const hostname = window.location.hostname;
+
     angular
         .module('fuse')
-        .constant('WORDPRESS_API_URL', 'https://52.25.11.31:8080/api/')
-        .constant('WOOCOMMERCE_API_URL', 'https://52.25.11.31:8080/wc-api/v3')
-        .constant('WEBSOCKETS_URL', 'wss://52.25.11.31:8084')
+        .constant('WORDPRESS_API_URL', 'https://' + hostname + ':8080/api/')
+        .constant('WOOCOMMERCE_API_URL', 'https://' + hostname + ':8080/wc-api/v3')
+        .constant('WEBSOCKETS_URL', 'wss://' + hostname + ':8084')
 
         .constant('USER_ROLE', {
-            'ADMIN': 'administrator',
+            'ADMIN': 'store_admin',
             'DRIVER': 'driver'
         })
 
-        .constant('LOGIN_ROLES', ['administrator', 'deliadmin', 'driver'])
+        .constant('LOGIN_ROLES', ['store_admin', 'driver'])
 })();

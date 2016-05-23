@@ -10,7 +10,7 @@
         // State
         $stateProvider
             .state('app.profile', {
-                role: ['administrator', 'driver'],
+                role: ['store_admin', 'driver'],
                 url: '/profile',
                 views: {
                     'content@app': {

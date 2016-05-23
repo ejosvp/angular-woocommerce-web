@@ -13,7 +13,7 @@
         $stateProvider
             .state('app.dashboard', {
                 url    : '/dashboard',
-                role   : 'administrator',
+                role   : 'store_admin',
                 views  : {
                     'content@app': {
                         templateUrl: 'app/main/dashboard/dashboard.html',

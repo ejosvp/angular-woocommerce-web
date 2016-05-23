@@ -14,7 +14,7 @@
                 url: '/orders'
             })
             .state('app.orders.list', {
-                role: ['administrator', 'driver'],
+                role: ['store_admin', 'driver'],
                 url: '/list',
                 views: {
                     'content@app': {
@@ -29,7 +29,7 @@
                 }
             })
             .state('app.orders.order', {
-                role: 'administrator',
+                role: 'store_admin',
                 url: '/{orderId:[0-9]+}',
                 views: {
                     'content@app': {
@@ -53,7 +53,7 @@
                 }
             })
             .state('app.orders.order.confirm', {
-                role: 'administrator',
+                role: 'store_admin',
                 url: '/confirm',
                 views: {
                     'content@app': {

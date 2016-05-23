@@ -15,9 +15,9 @@
         $rootScope.global = {
             search: ''
         };
-        
+
         vm.user = User;
-        vm.is_admin = auth.userHasRole('administrator');
+        vm.is_admin = auth.userHasRole(auth.USER_ROLE.ADMIN);
 
         vm.bodyEl = angular.element('body');
         vm.userStatusOptions = [
