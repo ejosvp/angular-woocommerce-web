@@ -19,8 +19,8 @@
                     }
                 },
                 resolve: {
-                    Store: function (wpUsers) {
-                        return wpUsers.getUserMeta();
+                    Store: function (wpDeli) {
+                        return wpDeli.getStore();
                     }
                 }
             })

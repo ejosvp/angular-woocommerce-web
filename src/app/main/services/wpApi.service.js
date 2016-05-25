@@ -32,10 +32,14 @@
         function call(method, url, params, data, config) {
             config = config || {};
 
+            if (url[url.length - 1] != '/') {
+                url = url + '/';
+            }
+
             config.method = method;
             config.url = WORDPRESS_API_URL + url;
-            config.params = params;
-            config.data = data;
+            config.params = params || {};
+            config.data = data || {};
 
             if (cookie) {
                 if (method == 'get') {
@@ -50,7 +54,10 @@
                 'Content-Type': 'application/x-www-form-urlencoded'
             };
 
-            return $http(config);
+            return $http(config).then(function (response) {
+                delete response.data.status;
+                return response.data;
+            });
         }
     }
 

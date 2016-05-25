@@ -10,10 +10,13 @@
 
         var api = wpApi('deli');
 
-        return {
+        var service = {
             storeAccept: storeAccept,
             driverAccept: driverAccept,
-            clientAccept: clientAccept
+            clientAccept: clientAccept,
+            getOrders: getOrders,
+            getStore: getStore,
+            updateStore: updateStore
         };
 
         function storeAccept(order_id, driver_id) {
@@ -36,6 +39,19 @@
             });
         }
 
+        function getOrders() {
+            return api.get('/orders');
+        }
+
+        function getStore() {
+            return api.get('/store');
+        }
+        
+        function updateStore(store) {
+            return api.post('/store', {}, store);
+        }
+
+        return service;
     }
 
 })();

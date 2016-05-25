@@ -23,7 +23,7 @@
         // Store state in the root scope for easy access
         $rootScope.state = $state;
 
-        // auth
+        // Authorization
         $rootScope.$on('$stateChangeStart', function (event, toState) {
             if (toState.role) {
                 if (!wpAuth.userCan(toState.role)) {
@@ -34,12 +34,12 @@
         });
 
         // websockets init
-        WebSocket.init();
+        // WebSocket.init();
 
         // emit driver position
-        if (wpAuth.userCan('driver')) {
-            Location.emitPosition();
-        }
+        // if (wpAuth.userCan('driver')) {
+        //     Location.emitPosition();
+        // }
 
         // Cleanup
         $rootScope.$on('$destroy', function () {

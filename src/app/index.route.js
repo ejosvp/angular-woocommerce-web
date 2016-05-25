@@ -36,8 +36,8 @@
                     }
                 },
                 resolve: {
-                    User: function (auth) {
-                        return auth.getUser().data;
+                    User: function (wpAuth) {
+                        return wpAuth.getUser();
                     }
                 }
             });

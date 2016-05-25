@@ -7,50 +7,42 @@
 
     /** @ngInject */
     function ProfileController(Store, // Data
-                               wpUsers, DialogService, googleMaps, // App services
+                               wpDeli, DialogService, googleMaps, // App services
                                $q // Core services
     ) {
         var vm = this;
 
         // Data
         vm.store = Store;
-        setRadius();
 
         vm.map = googleMaps.Map();
+        vm.map.markerOptions = {icon: googleMaps.getIcon('store.png', [35, 35])};
+        vm.map.center = angular.copy(vm.store.coords);
         vm.map.circleEvents = {
             radius_changed: radiusChanged
         };
 
         // Methods
         vm.saveForm = saveForm;
-        vm.setRadius = setRadius;
+        vm.geocodeAddress = geocodeAddress;
 
         //////////
         function saveForm(ev) {
-            wpUsers.updateUserMetas({
-                storeName: vm.store.storeName,
-                storeDescription: vm.store.storeDescription,
-                storeAddress: vm.store.storeAddress,
-                storeRadius: vm.store.storeRadius,
-                storePhone: vm.store.storePhone
-            }).then(function () {
+            wpDeli.updateStore(vm.store).then(function (store) {
+                vm.store = store;
                 DialogService.showAlert(ev, 'Store Info updated!');
             });
-        }
-
-        function setRadius() {
-            vm.store.radius = parseInt(vm.store.storeRadius);
         }
 
         function radiusChanged(circle) {
             circle.getMap().fitBounds(circle.getBounds());
         }
 
-        googleMaps.geocodeAddress(vm.store.storeAddress).then(function (coords) {
-            vm.map.center = angular.copy(coords);
-
-            vm.store.coords = coords;
-            vm.store.markerOptions = {icon: googleMaps.getIcon('store.png', [35, 35])};
-        });
+        function geocodeAddress() {
+            googleMaps.geocodeAddress(vm.store.address).then(function (coords) {
+                vm.map.center = angular.copy(coords);
+                vm.store.coords = coords;
+            });
+        }
     }
 })();

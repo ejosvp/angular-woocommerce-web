@@ -752,7 +752,7 @@
     }
 
     /** @ngInject */
-    function MsNavigationNodeController($scope, $element, $rootScope, $animate, $state, msNavigationService, auth)
+    function MsNavigationNodeController($scope, $element, $rootScope, $animate, $state, msNavigationService, wpAuth)
     {
         var vm = this;
 
@@ -1050,7 +1050,7 @@
             if (vm.node.state) {
                 var state = $state.get(vm.node.state);
                 var role = state.role;
-                if (role && !auth.userHasRole(role)) {
+                if (role && !wpAuth.userCan(role)) {
                     return true;
                 }
             }

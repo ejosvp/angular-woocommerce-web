@@ -10,7 +10,7 @@
 
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
-                        <input type="text" name="name" ng-model="vm.store.storeName"
+                        <input type="text" name="name" ng-model="vm.store.name"
                                placeholder="Name"
                                required>
                     </md-input-container>
@@ -18,7 +18,7 @@
 
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
-                        <input type="text" name="description" ng-model="vm.store.storeDescription"
+                        <input type="text" name="description" ng-model="vm.store.description"
                                placeholder="Description"
                                required>
                     </md-input-container>
@@ -26,24 +26,24 @@
 
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
-                        <input type="text" name="address" ng-model="vm.store.storeAddress"
+                        <input type="text" name="address" ng-model="vm.store.address"
                                placeholder="Address"
+                               ng-change="vm.geocodeAddress()"
                                required>
                     </md-input-container>
                 </div>
 
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
-                        <input type="text" name="radius" ng-model="vm.store.storeRadius"
+                        <input type="number" name="radius" ng-model="vm.store.radius"
                                placeholder="Radius (in meters)"
-                               ng-change="vm.setRadius()"
                                required>
                     </md-input-container>
                 </div>
 
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
-                        <input type="text" name="phone" ng-model="vm.store.storePhone"
+                        <input type="text" name="phone" ng-model="vm.store.phone"
                                placeholder="Phone"
                                required>
                     </md-input-container>
@@ -64,18 +64,14 @@
         <div class="form-wrapper md-whiteframe-1dp" flex>
             <ui-gmap-google-map
                     center="vm.map.center"
-                    zoom="vm.map.zoom"
-                    bounds="vm.map.bounds">
-                <ui-gmap-marker
-                        idKey='1'
-                        coords='vm.store.coords'
-                        options='vm.store.markerOptions'
-                >
+                    zoom="vm.map.zoom">
+                <ui-gmap-marker idKey='1'
+                                coords='vm.store.coords'
+                                options='vm.map.markerOptions'>
                 </ui-gmap-marker>
                 <ui-gmap-circle center='vm.store.coords'
                                 radius='vm.store.radius'
-                                events="vm.map.circleEvents"
-                >
+                                events="vm.map.circleEvents">
                 </ui-gmap-circle>
             </ui-gmap-google-map>
         </div>

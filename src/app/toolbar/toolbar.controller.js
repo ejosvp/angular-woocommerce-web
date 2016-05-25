@@ -7,7 +7,7 @@
         .controller('ToolbarController', ToolbarController);
 
     /** @ngInject */
-    function ToolbarController($rootScope, $mdSidenav, auth, $state, User)
+    function ToolbarController($rootScope, $mdSidenav, wpAuth, $state, User)
     {
         var vm = this;
 
@@ -17,7 +17,7 @@
         };
 
         vm.user = User;
-        vm.is_admin = auth.userHasRole(auth.USER_ROLE.ADMIN);
+        vm.is_admin = wpAuth.userCan('store_admin');
 
         vm.bodyEl = angular.element('body');
         vm.userStatusOptions = [
@@ -77,7 +77,7 @@
          */
         function logout()
         {
-            auth.logout();
+            wpAuth.logout();
             $state.transitionTo('auth_login');
         }
 
