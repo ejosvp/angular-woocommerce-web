@@ -6,7 +6,7 @@
         .factory('OrderService', OrderService);
 
     /** @ngInject */
-    function OrderService(auth, USER_ROLE, WebSocket, googleMaps, wpUsers, // App services
+    function OrderService(wpAuth, USER_ROLE, WebSocket, googleMaps, wpUsers, // App services
                           $q, apiResolver // Core services
     ) {
 
@@ -55,7 +55,7 @@
 
             // get current orders
             apiResolver.resolve('orders@get', {
-                'status': auth.userHasRole(USER_ROLE.ADMIN) ? 'processing' : 'pending'
+                'status': wpAuth.userCan('store_admin') ? 'processing' : 'pending'
             }).then(onSuccess);
 
             return deferred.promise;
@@ -84,7 +84,7 @@
                 deferred.reject();
             }
 
-            else if (auth.userHasRole(USER_ROLE.ADMIN)) {
+            else if (wpAuth.userCan('store_admin')) {
 
                 // get Store
                 wpUsers.getUserMeta().then(function (store) {
@@ -106,8 +106,8 @@
                 });
             }
 
-            else if (auth.userHasRole(USER_ROLE.DRIVER)) {
-                deferred.resolve(auth.isCurrentUser(order.order_meta.driver))
+            else if (wpAuth.userCan(USER_ROLE.DRIVER)) {
+                deferred.resolve(wpAuth.getUser().id == order.order_meta.driver)
             }
 
             else {

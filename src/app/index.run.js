@@ -6,7 +6,7 @@
         .run(runBlock);
 
     /** @ngInject */
-    function runBlock(auth, Location, USER_ROLE, WebSocket,
+    function runBlock(wpAuth, Location, WebSocket,
                       $rootScope, $timeout, $state) {
         // Activate loading indicator
         var stateChangeStartEvent = $rootScope.$on('$stateChangeStart', function () {
@@ -26,12 +26,10 @@
         // auth
         $rootScope.$on('$stateChangeStart', function (event, toState) {
             if (toState.role) {
-                auth.userIsLoggedIn().then(function (response) {
-                    if (response === false) {
-                        event.preventDefault();
-                        $state.go('auth_login');
-                    }
-                });
+                if (!wpAuth.userCan(toState.role)) {
+                    event.preventDefault();
+                    $state.go('auth_login');
+                }
             }
         });
 
@@ -39,7 +37,7 @@
         WebSocket.init();
 
         // emit driver position
-        if (auth.userHasRole(USER_ROLE.DRIVER)) {
+        if (wpAuth.userCan('driver')) {
             Location.emitPosition();
         }
 

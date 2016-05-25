@@ -7,7 +7,7 @@
 
     /** @ngInject */
     function OrderConfirmController(Order, StoreInfo, User, Drivers,// Data
-                             googleMaps, Location, auth, DialogService, // App services
+                             googleMaps, Location, wpAuth, DialogService, // App services
                              $state, $q // Core services
     ) {
         var vm = this;
@@ -75,7 +75,7 @@
         function _getUserCoords() {
             var deferred = $q.defer();
 
-            if (auth.userHasRole(auth.USER_ROLE.ADMIN)) {
+            if (wpAuth.userCan('store_admin')) {
                 googleMaps.geocodeAddress(vm.store.storeAddress).then(function (coords) {
                     vm.map.center = angular.copy(coords);
                     vm.map.extendBounds(coords);
@@ -89,7 +89,7 @@
                     });
                 });
             }
-            else if (auth.userHasRole(auth.USER_ROLE.DRIVER)) {
+            else if (wpAuth.userCan('driver')) {
                 Location.getCurrentPosition().then(function (coords) {
                     vm.map.center = angular.copy(coords);
                     vm.map.extendBounds(coords);

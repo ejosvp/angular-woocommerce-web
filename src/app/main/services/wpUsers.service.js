@@ -6,10 +6,10 @@
         .factory('wpUsers', wpUsers);
 
     /** @ngInject */
-    function wpUsers(auth, $http, $httpParamSerializer, $q, WORDPRESS_API_URL) {
+    function wpUsers($http, $httpParamSerializer, $q, WORDPRESS_API_URL) {
 
         var base_params = {
-            'cookie': auth.getUser().cookie,
+            'cookie': window.localStorage.cookie,
             'callback': 'JSON_CALLBACK'
         };
 

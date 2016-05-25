@@ -6,12 +6,12 @@
         .controller('OrdersController', OrdersController);
 
     /** @ngInject */
-    function OrdersController(Orders, auth) {
+    function OrdersController(Orders, wpAuth) {
         var vm = this;
 
         // Data
-        vm.is_admin = auth.userHasRole(auth.USER_ROLE.ADMIN);
-        vm.is_driver = auth.userHasRole(auth.USER_ROLE.DRIVER);
+        vm.is_admin = wpAuth.userCan('store_admin');
+        vm.is_driver = wpAuth.userCan('driver');
         vm.orders = Orders;
 
         // Methods

@@ -6,7 +6,7 @@
         .controller('LoginController', LoginController);
 
     /** @ngInject */
-    function LoginController($state, auth) {
+    function LoginController($state, wpAuth) {
         var vm = this;
 
         // Data
@@ -26,14 +26,9 @@
                 password: vm.user.password
             };
 
-            auth.login(user)
+            wpAuth.login(user.username, user.password)
                 .then(function (user) {
-                    //success
                     $state.go('app.orders.list');
-                }, function (err) {
-                    //error
-                    console.log(err);
-                    // $scope.error = err;
                 });
         }
     }
