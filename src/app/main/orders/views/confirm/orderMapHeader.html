@@ -3,9 +3,9 @@
         DELIVERY ADDRESS: <small>{{vm.order.shipping_address.full_address}}</small>
     </div>
 </div>
-<div class="content" align="end center" ng-if="vm.accepted">
+<div class="content" align="end center" ng-if="vm.order.store_accepted_at">
     <div class="title">
         Time Since Shipped
-        <small>{{vm.zeros(vm.time / 60)}}:{{vm.zeros(vm.time % 60)}}</small>
+        <small>{{ vm.store_accepted_at }} minutes</small>
     </div>
 </div>

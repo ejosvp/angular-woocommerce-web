@@ -23,8 +23,8 @@
                     }
                 },
                 resolve: {
-                    Orders: function (OrderService) {
-                        return OrderService.getOrders();
+                    Orders: function (wpDeli) {
+                        return wpDeli.getOrders();
                     }
                 }
             })
@@ -44,11 +44,8 @@
                     }
                 },
                 resolve: {
-                    Order: function ($stateParams, OrderService) {
-                        return OrderService.getOrder($stateParams.orderId);
-                    },
-                    StoreInfo: function (wpUsers) {
-                        return wpUsers.getUserMeta();
+                    Order: function ($stateParams, wpDeli) {
+                        return wpDeli.getOrder($stateParams.orderId);
                     }
                 }
             })
@@ -71,10 +68,8 @@
                     }
                 },
                 resolve: {
-                    Drivers: function (apiResolver) {
-                        return apiResolver.resolve('users@get', {
-                            'filter[role]': 'driver'
-                        });
+                    Drivers: function (wpDeli) {
+                        return wpDeli.getDrivers();
                     }
                 }
             })

@@ -6,9 +6,9 @@
         .controller('OrderConfirmController', OrderConfirmController);
 
     /** @ngInject */
-    function OrderConfirmController(Order, StoreInfo, User, Drivers,// Data
-                             googleMaps, Location, wpAuth, DialogService, // App services
-                             $state, $q // Core services
+    function OrderConfirmController(Order, User, Drivers, // Data
+                                    googleMaps, wpDeli, DialogService, // App services
+                                    $state, $q, $timeout // Core services
     ) {
         var vm = this;
 
@@ -18,12 +18,14 @@
         vm.order.markerOptions = {icon: googleMaps.getIcon('client.png', [30, 30])};
 
         vm.order.selectable_items = true;
-
-        vm.store = StoreInfo;
+        if (vm.order.store_accepted_at) {
+            console.log(vm.order.store_accepted_at);
+            storeAcceptedAt();
+        }
 
         vm.user = User;
 
-        vm.drivers = Drivers.customers;
+        vm.drivers = Drivers;
         vm.driver = vm.drivers[0];
 
         vm.map = googleMaps.Map();
@@ -32,8 +34,7 @@
         // Methods
         vm.declineOrder = declineOrder;
         vm.setDriver = setDriver;
-        vm.sendProducts = sendProducts;
-        vm.zeros = zeros;
+        vm.storeAccept = storeAccept;
 
         //////////
         function declineOrder() {
@@ -44,27 +45,16 @@
             vm.driver = driver;
         }
 
-        function sendProducts() {
-            vm.order.status = 'pending';
-            vm.order.order_meta = {
-                driver: vm.driver.id,
-                confirmed_at: moment()
-            };
-            vm.order.$save().then(function () {
-                vm.accepted = true;
-                start();
+        function storeAccept() {
+            wpDeli.storeAccept(vm.order.id, vm.driver.id).then(function (accepted_at) {
+                vm.accepted_at = accepted_at;
+                storeAcceptedAt();
             });
         }
 
-        function start() {
-            vm.time++;
-            vm.timeout = $timeout(start, 1000);
-        }
-
-        function zeros(min) {
-            if (min < 10)
-                return '0' + Math.floor(min);
-            return Math.floor(min) + '';
+        function storeAcceptedAt() {
+            vm.store_accepted_at = Math.floor((moment().unix() - vm.order.store_accepted_at) / 60);
+            $timeout(storeAcceptedAt, 1000);
         }
 
         $q.all([
@@ -75,37 +65,18 @@
         function _getUserCoords() {
             var deferred = $q.defer();
 
-            if (wpAuth.userCan('store_admin')) {
-                googleMaps.geocodeAddress(vm.store.storeAddress).then(function (coords) {
-                    vm.map.center = angular.copy(coords);
-                    vm.map.extendBounds(coords);
+            wpDeli.getStore(vm.user.id).then(function (store) {
+                vm.map.center = angular.copy(store.coords);
+                vm.map.extendBounds(store.coords);
 
-                    vm.user.coords = coords;
-                    vm.user.markerOptions = {icon: googleMaps.getIcon('store.png', [35, 35])};
+                vm.user.coords = store.coords;
+                vm.user.markerOptions = {icon: googleMaps.getIcon('store.png', [35, 35])};
 
-                    deferred.resolve({
-                        lat: coords.latitude,
-                        lng: coords.longitude
-                    });
+                deferred.resolve({
+                    lat: store.coords.latitude,
+                    lng: store.coords.longitude
                 });
-            }
-            else if (wpAuth.userCan('driver')) {
-                Location.getCurrentPosition().then(function (coords) {
-                    vm.map.center = angular.copy(coords);
-                    vm.map.extendBounds(coords);
-
-                    vm.user.coords = coords;
-                    vm.user.markerOptions = {icon: googleMaps.getIcon('truck.png')};
-
-                    deferred.resolve({
-                        lat: coords.latitude,
-                        lng: coords.longitude
-                    });
-                });
-            }
-            else {
-                deferred.reject()
-            }
+            });
 
             return deferred.promise;
         }
