@@ -45,7 +45,7 @@
                                     <td class="client">{{order.customer.first_name}} {{order.customer.last_name}}</td>
                                     <td class="address">{{order.shipping_address.full_address}}</td>
                                     <td class="amount text-right">{{order.total | currency}}</td>
-                                    <td class="time-left text-right">{{order.completed_ago}}</td>
+                                    <td class="time-left text-right">{{order.completed_at}}</td>
                                     <td class="purchased text-right">{{order.line_items.length}}</td>
                                     <td class="actions text-right">
                                         <md-button class="md-icon-button main-sidenav-toggle"

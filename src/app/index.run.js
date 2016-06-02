@@ -34,7 +34,7 @@
         });
 
         // websockets init
-        // WebSocket.init();
+        WebSocket.init();
 
         // emit driver position
         // if (wpAuth.userCan('driver')) {
