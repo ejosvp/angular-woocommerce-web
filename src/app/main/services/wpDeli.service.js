@@ -76,38 +76,69 @@
 
         ////////////
         function filterOrders(results) {
-            var deferred = $q.defer();
-            var _orders = {};
+            var ids = [];
+            var _orders = [];
 
-            var promises = [];
-            var promise = $q.defer();
-            promises.push(promise);
             if (wpAuth.userCan('store_admin')) {
+                var deferred = $q.defer();
+
+                var promises = [];
+                var promise = $q.defer();
+                promises.push(promise);
                 service.getStore().then(function (store) {
                     angular.forEach(results, function (order) {
                         googleMaps.geocodeAddress(order.shipping_address.full_address).then(function (coords) {
                             if (_orderInRadius(coords, store)) {
-                                _orders[order.id] = order;
+                                _orders.push(order);
+                                ids.push(order.id);
                             }
                             promise.resolve();
                         });
                     });
                     WebSocket.subscribe('new_order', function (id) {
-                        service.getOrder(id).then(function (order) {
-                            googleMaps.geocodeAddress(order.shipping_address.full_address).then(function (coords) {
-                                if (_orderInRadius(coords, store)) {
-                                    _orders[order.id] = order;
-                                }
+                        id = parseInt(id);
+                        if (ids.indexOf(id) == -1) {
+                            service.getOrder(id).then(function (order) {
+                                googleMaps.geocodeAddress(order.shipping_address.full_address).then(function (coords) {
+                                    if (_orderInRadius(coords, store)) {
+                                        order.new = true;
+                                        _orders.push(order);
+                                        ids.push(order.id);
+                                    }
+                                });
                             });
-                        });
+                        }
                     });
                 });
+
+                // only resolve when all orders has been processed
+                $q.all(promises).then(function () {
+                    deferred.resolve(_orders)
+                });
+
+                return deferred.promise;
             }
 
-            // only resolve when all orders has been processed
-            $q.all(promises).then(function () {
-                deferred.resolve(_orders)
-            });
+            if (wpAuth.userCan('driver')) {
+                angular.forEach(results, function (order) {
+                    _orders.push(order);
+                    ids.push(order.id);
+                });
+                WebSocket.subscribe('store_order', function (id) {
+                    id = parseInt(id);
+                    if (ids.indexOf(id) == -1) {
+                        service.getOrder(id).then(function (order) {
+                            googleMaps.geocodeAddress(order.shipping_address.full_address).then(function (coords) {
+                                order.new = true;
+                                _orders.push(order);
+                                ids.push(order.id);
+                            });
+                        });
+                    }
+                });
+
+                return _orders;
+            }
 
             function _orderInRadius(coords, store) {
                 var distance = google.maps.geometry.spherical.computeDistanceBetween(
@@ -115,8 +146,6 @@
                     new google.maps.LatLng(coords.latitude, coords.longitude));
                 return distance < store.radius;
             }
-
-            return deferred.promise;
         }
 
         return service;
