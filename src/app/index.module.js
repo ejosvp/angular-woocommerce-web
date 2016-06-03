@@ -22,6 +22,7 @@
 
             // Auth
             'auth.login',
+            'auth.logout',
 
             // Orders
             'app.orders',
