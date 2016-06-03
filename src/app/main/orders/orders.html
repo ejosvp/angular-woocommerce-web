@@ -38,7 +38,11 @@
                                 </tfoot>
 
                                 <tbody>
-                                <tr ng-repeat="order in vm.orders" id="order{{order.id}}">
+                                <tr
+                                        ng-repeat="order in vm.orders | orderBy:'-completed_at'"
+                                        id="order{{order.id}}"
+                                        ng-class="{'light-blue-50-bg':order.new}"
+                                >
                                     <td>
                                         <img class="avatar" src="assets/images/avatars/profile.jpg">
                                     </td>
