@@ -19,7 +19,6 @@
 
         vm.order.selectable_items = true;
         if (vm.order.store_accepted_at) {
-            console.log(vm.order.store_accepted_at);
             storeAcceptedAt();
         }
 
@@ -47,7 +46,6 @@
 
         function storeAccept() {
             wpDeli.storeAccept(vm.order.id, vm.driver.id).then(function (accepted_at) {
-                vm.accepted_at = accepted_at;
                 storeAcceptedAt();
             });
         }

@@ -2,14 +2,14 @@
     <md-button
             ng-click="vm.iAmHere()"
             class="md-accent md-raised"
-            ng-if="vm.accepted"
+            ng-if="vm.driver_accept"
             aria-label="compose"
     >I Am Here
     </md-button>
 </div>
 <div align="end center">
     <md-button
-            ng-click="vm.acceptDelivery()"
+            ng-click="vm.driverAccept()"
             class="md-accent md-raised md-light-green-500-bg"
             aria-label="compose"
     >Accept Delivery
@@ -18,7 +18,7 @@
 
 <div class="card md-whiteframe-8dp" ng-if="vm.i_am_here">
     <div class="content">
-        <md-slider flex min="0" max="2" aria-label="slide"></md-slider>
+        <md-slider ng-model="vm.client_vote" flex min="0" max="2" aria-label="slide"></md-slider>
         <section class="block" layout="row" layout-sm="column" layout-align="center" layout-wrap>
             <h2 flex align="start center">No Tip</h2>
             <h2 flex align="center">Average</h2>
@@ -26,7 +26,7 @@
         </section>
         <div align="center">
             <md-button
-                    ng-click="vm.completeOrder()"
+                    ng-click="vm.clientAccept()"
                     class="md-accent md-raised md-light-green-500-bg"
                     aria-label="compose"
             >Complete Order
