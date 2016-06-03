@@ -54,7 +54,7 @@
         msNavigationServiceProvider.saveItem('logout', {
             title    : 'Logout',
             icon     : 'power_settings_new',
-            state    : 'auth_login',
+            state    : 'auth_logout',
             weight   : 7
         });
     }

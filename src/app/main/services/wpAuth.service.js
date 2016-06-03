@@ -23,18 +23,18 @@
                 username: username,
                 password: password
             }).then(function (response) {
-                if (response.data.status == 'ok') {
-                    window.localStorage.cookie = response.data.cookie;
-                    window.localStorage.woocommerce = response.data.woocommerce;
-                    window.localStorage.user = JSON.stringify(response.data.user);
-                }
+                window.localStorage.cookie = response.cookie;
+                window.localStorage.woocommerce = response.woocommerce;
+                window.localStorage.user = JSON.stringify(response.user);
 
-                return response.data.user;
+                return response.user;
             });
         }
 
         function logout() {
-            window.sessionStorage.clear();
+            console.log(window.sessionStorage);
+            window.localStorage.clear();
+            console.log(window.sessionStorage);
         }
 
         function getUser() {
