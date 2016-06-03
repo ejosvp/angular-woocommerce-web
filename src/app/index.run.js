@@ -24,6 +24,7 @@
         $rootScope.state = $state;
 
         // Authorization
+        $rootScope.user = wpAuth.getUser();
         $rootScope.$on('$stateChangeStart', function (event, toState) {
             if (toState.role) {
                 if (!wpAuth.userCan(toState.role)) {
