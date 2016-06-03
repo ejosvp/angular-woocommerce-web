@@ -6,7 +6,7 @@
         .config(config);
 
     /** @ngInject */
-    function config($stateProvider, $translatePartialLoaderProvider) {
+    function config($stateProvider) {
         // State
         $stateProvider.state('auth_login', {
             url: '/login',
@@ -22,9 +22,6 @@
             },
             bodyClass: 'login'
         });
-
-        // Translation
-        $translatePartialLoaderProvider.addPart('app/main/auth/login');
     }
 
 })();
